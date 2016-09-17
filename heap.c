@@ -89,14 +89,12 @@ void delete(int* heap, int ele){
 
 	int deletepos = findelement(heap, ele);
 	
-	printf("deletepos=%d\n", deletepos);
+
 	if(deletepos > 0){
 		int now = deletepos;
 		int lastele = heap[heapsize--];
 		int child = deletepos;		
-		printf("lastele=%d\n",lastele);
 		for(; (child*2<heapsize); now=child){
-			printf("child=%d now=%d\n",child,now);
 			child = child*2;
 			if(child<heapsize && heap[child+1] > heap[child]){
 				child += 1;
@@ -112,7 +110,6 @@ void delete(int* heap, int ele){
 
 
 		}
-		printf("now=%d\n", now);
 		heap[now] = lastele;	
 	}
 
@@ -135,6 +132,6 @@ int main(){
 		insert(i);
 	}
 	printheap();
-	delete(heap, 10);
+	delete(heap, 8);
 	printheap();
 }
