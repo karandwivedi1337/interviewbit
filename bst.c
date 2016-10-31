@@ -159,7 +159,9 @@ void delete(node** root, int ele){
 		return;
 	
 	}
-	//if node to delete is non-leaf, non-root
+	
+	
+	//if node to delete has both subtrees (root or non-root)
 	
 
 }
