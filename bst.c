@@ -96,12 +96,19 @@ void delete(node** root, int ele){
 
 	printf("Node found at = %p, Value = %d\n", nodetodelete, nodetodelete->n);
 
-	parentnode* parentnode = findparent(root, nodetodelete);
+	//case: if bst has only 1 node
+	if(nodetodelete == *root && isLeafNode(nodetodelete)){
+		*root = NULL;
+		return;		
+	}
+
+	//case: if node to delete is a leaf
+	if(isLeafNode(nodetodelete)){
+
+		parentnode* parentnode = findparent(root, nodetodelete);
 
 	printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
-
-	//if node to delete is a leaf
-	if(isLeafNode(tempnode)){
+		
 		if(parentnode->side == 0){
 			parentnode->parent->left=NULL;
 		}
@@ -109,10 +116,49 @@ void delete(node** root, int ele){
 			parentnode->parent->right=NULL;
 		}
 		free(nodetodelete);	
+		return;
 	}
 
-	//if node to delete is root
+	//case: nodetodelete has only a left subtree
+	if(nodetodelete->right == NULL){
+	
+		//special case: nodetodelete is root and has only left subtree	
+		if(*root == nodetodelete){
+			*root = nodetodelete->left;
+			free(nodetodelete);
+			return;			
+		}
+	
+		parentnode* parentnode = findparent(root, nodetodelete);
 
+	printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
+	
+		parentnode->parent->left = nodetodelete->left;
+		free(nodetodelete);
+		return;
+	
+	}
+
+	
+	//case: nodetodelete has only a right subtree
+	if(nodetodelete->left == NULL){
+
+		//special case: nodetodelete is root and has only right subtree	
+		if(*root == nodetodelete){
+			*root = nodetodelete->right;
+			free(nodetodelete);
+			return;			
+		}
+		
+		parentnode* parentnode = findparent(root, nodetodelete);
+
+	printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
+	
+		parentnode->parent->right = nodetodelete->right;
+		free(nodetodelete);
+		return;
+	
+	}
 	//if node to delete is non-leaf, non-root
 	
 
