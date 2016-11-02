@@ -84,20 +84,30 @@ int isLeafNode(node* tempnode){
 	return 0;
 }
 
-void delete(node** root, int ele){
+
+//return the minimum value from the right subtree of newroot
+node* minValueRightSubtree(node* newroot){
+
+	if(newroot->left == NULL){
+		return newroot;
+	}
+
+	return minValueRightSubtree(newroot->left);
+}
+
+void delete(node** root, node* nodetodelete){
 
 	node* tempnode = *root;
-	node* nodetodelete = findnode(root, ele);	
-	
+	//node* nodetodelete = findnode(root, ele);	
+
 	if(nodetodelete == NULL){
 		printf("%s", "Node not found");
 		return;
 	}	
 
-	printf("Node found at = %p, Value = %d\n", nodetodelete, nodetodelete->n);
-
 	//case: if bst has only 1 node
 	if(nodetodelete == *root && isLeafNode(nodetodelete)){
+		printf("%s", "case: if bst has only 1 node\n");
 		*root = NULL;
 		return;		
 	}
@@ -105,15 +115,18 @@ void delete(node** root, int ele){
 	//case: if node to delete is a leaf
 	if(isLeafNode(nodetodelete)){
 
+		printf("%s", "case: if node to delete is a leaf\n");
 		parentnode* parentnode = findparent(root, nodetodelete);
 
-	printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
-		
-		if(parentnode->side == 0){
+		printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
+
+		if(parentnode->side == 1){
 			parentnode->parent->left=NULL;
+			printf("%s","set parent's left side as NULL\n");
 		}
 		else{
 			parentnode->parent->right=NULL;
+			printf("%s","set parent's right side as NULL\n");
 		}
 		free(nodetodelete);	
 		return;
@@ -121,53 +134,61 @@ void delete(node** root, int ele){
 
 	//case: nodetodelete has only a left subtree
 	if(nodetodelete->right == NULL){
-	
+
+		printf("%s","case: nodetodelete has only a left subtree\n");
+
 		//special case: nodetodelete is root and has only left subtree	
 		if(*root == nodetodelete){
+			printf("%s","special case: nodetodelete is root and has only left subtree\n");	
 			*root = nodetodelete->left;
 			free(nodetodelete);
 			return;			
 		}
-	
+
 		parentnode* parentnode = findparent(root, nodetodelete);
 
-	printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
-	
+		printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
+
 		parentnode->parent->left = nodetodelete->left;
 		free(nodetodelete);
 		return;
-	
+
 	}
 
-	
+
 	//case: nodetodelete has only a right subtree
 	if(nodetodelete->left == NULL){
 
+		printf("%s","case: nodetodelete has only a right subtree\n");
 		//special case: nodetodelete is root and has only right subtree	
 		if(*root == nodetodelete){
+			printf("%s","special case: nodetodelete is root and has only right subtree\n");	
 			*root = nodetodelete->right;
 			free(nodetodelete);
 			return;			
 		}
-		
+
 		parentnode* parentnode = findparent(root, nodetodelete);
 
-	printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
-	
+		printf("Parent Node found at = %p, Value = %d\n", parentnode, parentnode->parent->n);
+
 		parentnode->parent->right = nodetodelete->right;
 		free(nodetodelete);
 		return;
-	
+
 	}
-	
+
 	
 	//if node to delete has both subtrees (root or non-root)
-	
+	printf("%s","node to delete has both subtrees (root or non-root)\n");
+	node* minValNode = minValueRightSubtree(nodetodelete->right);
+	nodetodelete->n = minValNode->n;
+	delete(root, minValNode);		
 
 }
 
-void insert(node** root, int ele){
 
+void insert(node** root, int ele){
 
 	node* newnode = getnode();
 	newnode->n=ele;	
@@ -212,6 +233,20 @@ void insert(node** root, int ele){
 
 }
 
+void printTree(node* root){
+
+	if(root->left != NULL){
+		printTree(root->left);
+	}
+
+	printf("%d", root->n);
+
+	if(root->right != NULL){
+		printTree(root->right);
+	}
+
+}
+
 int main(){
 
 	node* root = NULL;
@@ -224,6 +259,7 @@ int main(){
 		insert(&root, random);	
 		//printf("%d\n", find(&root, random)->n);
 	}
-	
-	delete(&root, 1000);
+
+	node* nodetodelete = findnode(&root, 520);
+	delete(&root, nodetodelete);
 }
