@@ -250,7 +250,7 @@ void printTree(node* root){
 
 }
 
-//O(n) time, no extra space
+//O(log(n)) time, O(n) extra space i.e. 1 integer extra in every node
 void kthsmallest(node* root, int k, int* out){
 
 	if(k == root->lcount + 1){
