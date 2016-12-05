@@ -36,7 +36,7 @@ int uniquePaths(int A, int B) {
 
 int main(){
 
-	printf("%d\n", uniquePaths(12,5));
+	printf("%d\n", uniquePaths(6,5));
 
 	return 0;
 }

@@ -4,6 +4,7 @@
 
 struct node{
 	int n;
+	int lcount;
 	struct node* left;
 	struct node* right;
 };
@@ -21,6 +22,7 @@ node* getnode(){
 
 	node* newnode = (node*)malloc(sizeof(struct node));	
 	newnode->left = newnode->right = NULL;
+	newnode->lcount=0;
 	return newnode;
 }
 
@@ -207,6 +209,7 @@ void insert(node** root, int ele){
 
 			if(ele < tempnode->n){
 				tempparent = tempnode;
+				tempparent->lcount++;
 				tempnode = tempnode->left;
 				left = 1;
 			}
@@ -239,7 +242,7 @@ void printTree(node* root){
 		printTree(root->left);
 	}
 
-	printf("%d", root->n);
+	printf("%d %d\n", root->n, root->lcount);
 
 	if(root->right != NULL){
 		printTree(root->right);
@@ -248,22 +251,21 @@ void printTree(node* root){
 }
 
 //O(n) time, no extra space
-void kthsmallest(node* root, int* currentpos, int k, int* out){
+void kthsmallest(node* root, int k, int* out){
 
-	if(root->left != NULL){
-		kthsmallest(root->left, currentpos, k, out);
+	if(k == root->lcount + 1){
+		*out = root->n;
+		return;	
+	}				
+
+	else if(k < root->lcount + 1){
+		kthsmallest(root->left, k, out);
 	}
 
-	(*currentpos)++;
-	if(*currentpos == k){
-		*out=root->n;
-		return;
-	}
-
-	if(root->right != NULL){
-		kthsmallest(root->right, currentpos, k, out);
-	}
-
+	else{
+		k = k - root->lcount - 1;
+		kthsmallest(root->right, k, out); 
+	}	
 }
 
 int main(){
@@ -279,13 +281,15 @@ int main(){
 		//printf("%d\n", find(&root, random)->n);
 	}
 	
-	int temp=0;
-	for(i=1; i<10; i++){
-		temp=0;
+	printTree(root);
+	
+	
+	for(i=1; i<=10; i++){
 		int out;
-		kthsmallest(root, &temp, i, &out);
+		kthsmallest(root, i, &out);
 		printf("%d ", out);
 	}
+	
 
 	//node* nodetodelete = findnode(&root, 520);
 	//delete(&root, nodetodelete);
