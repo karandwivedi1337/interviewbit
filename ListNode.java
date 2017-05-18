@@ -8,7 +8,7 @@ class ListNode {
 		next = null;
 	}
 
-	int getLength(ListNode head){
+	public static int getLength(ListNode head){
 	
 		int count = 0;
 		
@@ -22,7 +22,7 @@ class ListNode {
 		return count;
 	}
 
-	void printList(ListNode head){
+	public static void printList(ListNode head){
 		
 		ListNode temp = head;
 
@@ -30,10 +30,35 @@ class ListNode {
 			System.out.print(temp.val + " ");
 			temp = temp.next;
 		}
+	
+		System.out.println();
 
 	}
 
-	ListNode addNode(ListNode head, int ele){
+	public static ListNode removeFromEnd(ListNode head){
+	
+		ListNode temp = head;
+		ListNode prev = null;
+		
+		if(temp == null){
+			return temp;
+		}		
+		
+		if(temp.next == null){
+			head = null;
+			return temp;
+		}
+
+		while(temp.next != null){
+			prev = temp;
+			temp = temp.next;
+		}
+		
+		prev.next = null;
+		return temp;
+	}
+
+	public static ListNode addNode(ListNode head, int ele){
 
 		if(head == null){
 			ListNode newnode = new ListNode(ele);
@@ -53,7 +78,9 @@ class ListNode {
 		return head;
 	}
 
-	ListNode addNodeFromList(ListNode head, ArrayList<Integer> list){
+		
+
+	public static ListNode addNodeFromList(ListNode head, ArrayList<Integer> list){
 
 		if(head == null){
 
