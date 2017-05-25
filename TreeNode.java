@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.Random;
 public class TreeNode{
 
 	int val;
@@ -15,11 +16,10 @@ public class TreeNode{
 
 		if(root == null){
 			root = new TreeNode(ele);
-			System.out.println("inserted " + ele);
 			return root;
 		}				
 
-		else if(ele < root.val){
+		else if(ele <= root.val){
 			root.left = insert(root.left, ele);
 		}
 		else{
@@ -34,15 +34,15 @@ public class TreeNode{
 		if(root == null){
 			return;
 		}
-
+		
 		if(root.left != null){
 			printTree(root.left);
 		}
-
-		else if(root != null){
-			System.out.print(root.val);
-		}
 		
+		else if(root != null){
+			System.out.print(root.val + " ");
+		}
+
 		if(root.right != null){
 			printTree(root.right);
 		}
@@ -50,8 +50,11 @@ public class TreeNode{
 
 	public static void main(String args[])throws Exception{
 		TreeNode root = null;
+		Random rand = new Random();
 		for(int i=0; i<10; i++){	
-			root = TreeNode.insert(root, i);
+			int  n = rand.nextInt(50) + 1;
+			System.out.println("Inserting " + n);
+			root = TreeNode.insert(root, n);
 		}
 		
 		TreeNode.printTree(root);
