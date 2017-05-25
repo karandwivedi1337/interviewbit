@@ -29,6 +29,7 @@ public class TreeNode{
 		return root;
 	}
 
+	//pre-order traversal
 	public static void printTree(TreeNode root){
 
 		if(root == null){
