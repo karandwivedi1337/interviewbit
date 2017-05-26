@@ -49,6 +49,36 @@ public class TreeNode{
 		}
 	}
 
+	public static void printlevelOrder(TreeNode root){
+
+		if(root == null){
+			return;
+		}
+
+		java.util.Queue<TreeNode> q = new java.util.LinkedList<TreeNode>();
+		
+		q.add(root);
+		
+		while(!q.isEmpty()){
+
+			TreeNode tn = q.remove();
+			
+			System.out.print(tn.val + " ");
+
+			if(tn.left != null){
+				q.add(tn.left);
+			}	
+					
+			if(tn.right != null){
+				q.add(tn.right);
+			}
+
+		}
+
+	}
+
+	
+
 	public static void main(String args[])throws Exception{
 		TreeNode root = null;
 		Random rand = new Random();
@@ -58,6 +88,7 @@ public class TreeNode{
 			root = TreeNode.insert(root, n);
 		}
 		
-		TreeNode.printTree(root);
+		//TreeNode.printTree(root);
+		TreeNode.printlevelOrder(root);
 		System.out.println();	
 	}}
