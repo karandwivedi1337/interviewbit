@@ -52,7 +52,7 @@ public class VerticalTree{
 
 	}
 
-	public void inOrderTraversal(TreeNode root, HashMap<Integer, ArrayList<Integer>> hmap, ArrayList<ArrayList<Integer>> res){
+	public void levelOrderTraversal(TreeNode root, HashMap<Integer, ArrayList<Integer>> hmap, ArrayList<ArrayList<Integer>> res){
 
 		if(root == null){
 			return;
@@ -101,7 +101,7 @@ public class VerticalTree{
 
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();		
 
-		inOrderTraversal(A, hmap, res);	
+		levelOrderTraversal(A, hmap, res);	
 		populateResult(hmap, res);
 		return res;
 	}
