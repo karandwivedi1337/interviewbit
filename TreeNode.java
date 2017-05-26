@@ -40,9 +40,9 @@ public class TreeNode{
 			printTree(root.left);
 		}
 		
-		else if(root != null){
+		//else if(root != null){
 			System.out.print(root.val + " ");
-		}
+		//}
 
 		if(root.right != null){
 			printTree(root.right);
