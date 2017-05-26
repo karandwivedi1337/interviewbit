@@ -63,7 +63,7 @@ public class TreeNode{
 
 			TreeNode tn = q.remove();
 			
-			System.out.print(tn.val + " ");
+			System.out.print(tn.val + " height=" + TreeNode.findHeight(tn) + " ");
 
 			if(tn.left != null){
 				q.add(tn.left);
@@ -76,8 +76,21 @@ public class TreeNode{
 		}
 
 	}
+			
+	public static int findHeight(TreeNode node){
 
-	
+		if(node == null){
+			return 0;
+		}
+		
+		else if(node.left == null && node.right == null){
+			return 0;
+		}
+		
+
+		return Math.max(findHeight(node.left)+1, findHeight(node.right)+1);
+
+	}		
 
 	public static void main(String args[])throws Exception{
 		TreeNode root = null;
