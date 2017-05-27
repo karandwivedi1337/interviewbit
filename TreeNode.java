@@ -49,7 +49,7 @@ public class TreeNode{
 		}
 	}
 
-	public static void printlevelOrder(TreeNode root){
+	public static void printLevelOrder(TreeNode root){
 
 		if(root == null){
 			return;
@@ -102,6 +102,6 @@ public class TreeNode{
 		}
 		
 		//TreeNode.printTree(root);
-		TreeNode.printlevelOrder(root);
+		TreeNode.printLevelOrder(root);
 		System.out.println();	
 	}}
