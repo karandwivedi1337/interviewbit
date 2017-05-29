@@ -13,6 +13,18 @@ public class Heap{
 	public void insertHeap(int ele){		
 
 		//TODO: expand heap size if pos == capacity
+		
+		if(pos == capacity){
+			int newcapacity = capacity*2;
+			int newarr[] = new int[newcapacity];
+			
+			for(int i=1; i<pos; i++){
+				newarr[i] = arr[i];
+			}
+
+			capacity = newcapacity;
+			arr = newarr;
+		}		
 
 		arr[pos] = ele;
 
@@ -103,12 +115,16 @@ public class Heap{
 	public static void main(String args[])throws Exception{
 		Heap h = new Heap();
 
-		for(int i=8; i>=0; i--){
+		for(int i=10; i>=0; i--){
 			h.insertHeap(i);
 		}
 
 		h.printHeap();
-		for(int i=1; i<=9; i++){
+		for(int i=15; i>=0; i--){
+			
+			if(h.isEmpty()){
+				break;
+			}
 			System.out.println("min=" + h.getMin() + " ");
 			System.out.println("After deletion");
 			h.printHeap();
@@ -120,4 +136,5 @@ public class Heap{
 				h.insertHeap(10);
 				h.insertHeap(1);
 		 */
+		//System.out.println();
 	}}
