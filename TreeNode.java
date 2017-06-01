@@ -63,7 +63,7 @@ public class TreeNode{
 
 			TreeNode tn = q.remove();
 			
-			System.out.print(tn.val + " height=" + TreeNode.findHeight(tn) + " ");
+			System.out.print(tn.val + " ");
 
 			if(tn.left != null){
 				q.add(tn.left);
