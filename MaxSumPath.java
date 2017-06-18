@@ -2,35 +2,45 @@ import java.util.*;
 import java.io.*;
 public class MaxSumPath{
 	
-	int maxsum = 0;
+	long maxsum = Integer.MIN_VALUE;
 
 	public int recur(TreeNode node){
-	
-		if(node == null){
-			return 0;
-		}	
+
+        if(node == null){
+            return Integer.MIN_VALUE;
+        }
 
 		if(node.left == null && node.right==null){
 			return node.val;
 		}		
 
-		int leftval = recur(node.left);
-		int rightval = recur(node.right);
-		int maxchildval = Math.max(leftval, rightval);
-		int maxrootchildval = Math.max(maxchildval, maxchildval + node.val);
+		long leftval = recur(node.left);
+		long rightval = recur(node.right);
+		long maxchildval = Math.max(leftval, rightval);
+		long maxrootchildval = Math.max(node.val, Math.max(maxchildval, maxchildval + node.val));
 		
-		int maxsubtree = Math.max(maxrootchildval, node.val + leftval + rightval);
+		long maxsubtree = Math.max(maxrootchildval, node.val + leftval + rightval);
 		
 		maxsum = Math.max(maxsubtree, maxsum);
 	
-		return maxrootchildval;									
+		return (int)maxrootchildval;									
 	}
 
 	public int maxPathSum(TreeNode a) {
+        
+        maxsum = Integer.MIN_VALUE;
+        
+        if(a == null){
+            return 0;
+        }
+
+        else if(a.left == null && a.right == null){
+            return a.val;
+        }
 
 		recur(a);
 
-		return maxsum;			
+		return (int)maxsum;			
 	}
 
 	public static void main(String args[])throws Exception{
