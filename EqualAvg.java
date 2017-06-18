@@ -33,6 +33,26 @@ public class EqualAvg{
 		return ((float)sum)/n;	
 	}
 
+	public boolean isEvenSum(ArrayList<Integer> list){
+		
+		int n = list.size();
+		
+		if(n==0){
+			return true;
+		}
+
+		int sum = 0;
+
+		for(int i=0;i<n; i++){
+			sum+=list.get(i);		
+		}
+			
+		if(sum % 2 == 0){
+			return true;
+		}
+
+		return false;				
+	}
 
 	public void recur(ArrayList<Integer> a, int numele, int start, int end, float avg, ArrayList<Integer> temp, ArrayList<Integer> temppos, int tempsum){
 
@@ -64,8 +84,12 @@ public class EqualAvg{
 	public ArrayList<ArrayList<Integer>> avgset(ArrayList<Integer> a) {
 		int n = a.size();
 		if(n == 0){
-			return null;
+			return res;
 		}  
+		
+		if(!isEvenSum(a)){
+			return res;
+		}	
 
 		float avg = findAvg(a);		
 		Collections.sort(a);
@@ -103,7 +127,9 @@ public class EqualAvg{
 		
 		//ArrayList<Integer> a = new ArrayList<>(Arrays.asList(13, 30, 9, 13, 17, 42, 28, 20, 9, 24, 14, 20, 1, 28, 24, 26, 45, 27, 34, 38, 48, 38, 7, 34));
 		
-		ArrayList<Integer> a = new ArrayList<>(Arrays.asList(28, 14, 34, 18, 20, 34, 17, 24, 7, 22, 17, 49, 49, 20, 46, 22, 18, 46, 45, 39, 50, 40, 17, 48, 23));
+		//ArrayList<Integer> a = new ArrayList<>(Arrays.asList(28, 14, 34, 18, 20, 34, 17, 24, 7, 22, 17, 49, 49, 20, 46, 22, 18, 46, 45, 39, 50, 40, 17, 48, 23));
 
+		ArrayList<Integer> a = new ArrayList<>(Arrays.asList(47, 14, 30, 19, 30, 4, 32, 32, 15, 2, 6, 24));
+		
 		System.out.println(eq.avgset(a));				
 	}}
