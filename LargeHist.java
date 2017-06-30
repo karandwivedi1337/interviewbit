@@ -10,7 +10,6 @@ public class LargeHist{
 		for(i=0; i<a.size();){
 
 			if(st.isEmpty() || a.get(st.peek()) <= a.get(i)){
-				System.out.println("pushing "+i);
 				st.push(i++);
 			}
 
@@ -28,7 +27,6 @@ public class LargeHist{
 		}//for close	
 
 
-		System.out.println("exiting loop");
 		while(!st.isEmpty()){
 
 			int top = st.pop();
