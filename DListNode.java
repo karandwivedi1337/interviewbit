@@ -49,8 +49,11 @@ class DListNode {
 
 		if(head != null){
 			DListNode nextnode = head.next;
-			nextnode.prev = null;
-			head = nextnode;					     }	
+			if(nextnode != null){
+				nextnode.prev = null;
+			}
+			head = nextnode;
+		}	
 		
 		ArrayList<DListNode> res = new ArrayList<DListNode>();
 		res.add(head);
@@ -63,7 +66,14 @@ class DListNode {
 			
 		if(head != null){		
 			DListNode prev = tail.prev;
-			tail = prev;	
+			if(prev != null){
+				prev.next = null;
+			}
+			tail = prev;
+
+			if(tail == null){
+				head = null;
+			}
 		}
 
 		ArrayList<DListNode> res = new ArrayList<DListNode>();
@@ -142,8 +152,18 @@ class DListNode {
 		ArrayList<Integer> list = new ArrayList<>(Arrays.asList(9,8,5,2,1));
 		DListNode head=null, tail=null;
 		ArrayList<DListNode> res = new ArrayList<DListNode>();
-		res = DListNode.addNodeFromList(head, tail, list); 
+		for(int i=0; i<list.size(); i++){
+		res = DListNode.addNodeAtHead(head, tail, list.get(i)); 
 		head = res.get(0);
 		tail = res.get(1);
 		DListNode.printList(head, tail);
+		}
+
+		for(int i=0; i<list.size(); i++){
+		res = DListNode.removeFromEnd(head, tail); 
+		head = res.get(0);
+		tail = res.get(1);
+		DListNode.printList(head, tail);
+		}
+					
 	}}
